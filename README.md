@@ -57,7 +57,7 @@ The video linked above explains this in more detail.
 The desugared form of the conflict above looks similar to this:
 
 ```scala
-<<<<<<<.HEAD("foo".=======("baz").>>>>>>>(bar))
+<<<<<<<.HEAD("foo".=======("baz".>>>>>>>(bar)))
 ```
 
 the rest is done by this library.
