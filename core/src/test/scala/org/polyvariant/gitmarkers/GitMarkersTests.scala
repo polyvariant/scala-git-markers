@@ -22,7 +22,7 @@ object GitMarkersTests extends FunSuite {
 
   val bar = "bar"
 
-  val example =
+  val example = identity(
 // format: off
 
 <<<<<<< HEAD
@@ -30,7 +30,7 @@ object GitMarkersTests extends FunSuite {
 =======
 "baz"
 >>>>>>> bar
-
+)
 // format: on
 
   test("example is recognized") {

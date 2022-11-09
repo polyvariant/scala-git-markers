@@ -23,15 +23,16 @@ import org.polyvariant.gitmarkers._
 Now, whenever you see git's conflict markers, for example:
 
 ```scala
-val example =
+val example = (
 <<<<<<< HEAD
 "foo"
 =======
 "baz"
 >>>>>>> bar
+)
 ```
 
-you'll be able to compile your code! Just make sure you define a value for the second ref you're merging (in this case, `bar`):
+you **might** be able to compile your code! Just make sure you define a value for the second ref you're merging (in this case, `bar`):
 
 ```scala
 val bar = "bar"
@@ -47,3 +48,24 @@ example.describe
 // - Second ref: bar
 //   Value: baz
 ```
+
+## How does this work???
+
+Scala allows you to define symbolic methods. Additionally, you can add extension methods.
+The video linked above explains this in more detail.
+
+The desugared form of the conflict above looks similar to this:
+
+```scala
+<<<<<<<.HEAD("foo".=======("baz").>>>>>>>(bar))
+```
+
+the rest is done by this library.
+
+## Limitations
+
+This will only work in certain situations, most likely: whenever the conflict encapsulates a simple:
+
+- parameter of a function, or
+- expression in parentheses, or
+- free-standing expression/statement in Scala 3 or under `-Xsource:3` in Scala 2.13.
